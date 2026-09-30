@@ -15,6 +15,7 @@ public class CardGame {
 
 
         System.out.println("Please enter location of pack to load: ");
-        String stringPackLocation = scanner.nextLine();
+        String packLocation = scanner.nextLine();
+        Pack pack = new Pack(packLocation);
     }
 }
