@@ -16,6 +16,11 @@ public class CardGame {
 
         System.out.println("Please enter location of pack to load: ");
         String packLocation = scanner.nextLine();
-        Pack pack = new Pack(packLocation);
+
+        try{
+            Pack pack = new Pack(packLocation, numPlayers);
+        } catch (InvalidNumOfCardsException numex){
+            System.out.println(numex.getMessage());
+        }
     }
 }
