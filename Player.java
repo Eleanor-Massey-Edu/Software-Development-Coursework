@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
-    public ArrayList<Integer> hand = new ArrayList<Integer>();
+    private ArrayList<Integer> hand = new ArrayList<Integer>();
     private int playerID;
     private static int totalPlayers = 0;
     public static ArrayList<Player> playerArray = new ArrayList<Player>();
@@ -11,7 +11,6 @@ public class Player {
         this.playerID = totalPlayers;
 
         playerArray.add(this);
-        System.out.println(playerArray);
     }
 
     static Player getPlayer(int id) throws InvalidNumOfPlayersException {

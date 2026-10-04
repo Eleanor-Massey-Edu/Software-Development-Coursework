@@ -16,17 +16,16 @@ public class CardGame {
 
         for (int i = 1; i <= numPlayers; i++) {
             new Player();
+            new CardDeck();
         }
+
 
         System.out.println("Please enter location of pack to load: ");
         String packLocation = scanner.nextLine();
 
         try{
             Pack pack = new Pack(packLocation, numPlayers);
-            System.out.println(pack.packQueue);
             pack.deal();
-            System.out.println(Player.getPlayer(1).hand);
-            System.out.println(Player.getPlayer(2).hand);
         } catch (InvalidNumOfCardsException numex){
             System.out.println(numex.getMessage());
         } catch (NumberFormatException numformat){

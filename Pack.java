@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Pack {
 
-    public ArrayList<Integer> packQueue = new ArrayList<>(); //make the LinkedList data structure that the pack will be stored in
+    private ArrayList<Integer> packQueue = new ArrayList<>(); //make the LinkedList data structure that the pack will be stored in
 
 
     //Pack constructor
@@ -57,5 +57,17 @@ public class Pack {
                 packQueue.remove(0);
             }
         }
+
+        for (int i = 1; i <= 4; i++) { // 4 cards total for each person's deck
+            for (CardDeck deck: CardDeck.cardDeckArray) { // Do for each deck
+                if (!(CardDeck.cardDeckArray.isEmpty())) { // If cardDeckArray is not empty, keep dealing cards
+                    int cardToAdd = packQueue.get(0); // Retrieves and removes top card in the ArrayList pack
+                    deck.addToDeck(cardToAdd); // Add single card to player deck
+                    packQueue.remove(0);
+                }
+                
+            }
+        } 
+        
     }
 }
