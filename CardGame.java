@@ -21,6 +21,8 @@ public class CardGame {
             Pack pack = new Pack(packLocation, numPlayers);
         } catch (InvalidNumOfCardsException numex){
             System.out.println(numex.getMessage());
+        } catch (NumberFormatException numformat){
+            System.out.println(numformat.getMessage());
         }
     }
 }
