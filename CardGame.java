@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class CardGame {
     public static void main(String[] args) {
@@ -12,6 +13,13 @@ public class CardGame {
         System.out.println("Please enter the number of players: ");
         String stringNumPlayers = scanner.nextLine();
         int numPlayers = Integer.parseInt(stringNumPlayers); // change to int
+
+
+        for (int i = 1; i <= numPlayers; i++) {
+            new Player();
+        }
+
+        System.out.println(Player.getPlayer(1));
 
 
         System.out.println("Please enter location of pack to load: ");

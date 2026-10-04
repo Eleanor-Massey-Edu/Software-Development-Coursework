@@ -46,4 +46,7 @@ public class Pack {
         }
         }
     
+    public synchronized void Deal() {
+        
+    }
 }
