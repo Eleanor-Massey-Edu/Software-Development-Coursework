@@ -1,16 +1,19 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Scanner;
 
 public class Pack {
 
+    public ArrayList<Integer> packQueue = new ArrayList<>(); //make the LinkedList data structure that the pack will be stored in
+
+
     //Pack constructor
     Pack(String packLocation, int numPlayers){
         int count = 0;
         File packFile = new File(packLocation); //makes a File object that we can read
-        Queue<Integer> pack = new LinkedList<>(); //make the LinkedList data structure that the pack will be stored in
 
         try (Scanner scanner = new Scanner (packFile)) {  //make a Scanner that reads the packFile
             while (scanner.hasNextLine()){
@@ -25,7 +28,7 @@ public class Pack {
                     if (data < 0) {
                         throw new NegativeException("The data must be non-negative");
                     }
-                    pack.offer(data);  //puts the next bit of data onto the tail of the linked list 
+                    packQueue.add(data);  //puts the next bit of data onto the tail of the linked list 
                     
 
                 } catch (NumberFormatException e){
@@ -46,7 +49,13 @@ public class Pack {
         }
         }
     
-    public synchronized void Deal() {
-        
+    public synchronized void deal() {
+        for (int i = 1; i <= 4; i++) { // 4 cards total for each person's hand
+            for (Player player: Player.playerArray) { // Do for each player
+                int cardToAdd = packQueue.get(0); // Retrieves and removes top card in the ArrayList pack
+                player.addToHand(cardToAdd); // Add single card to player hand
+                packQueue.remove(0);
+            }
+        }
     }
 }
