@@ -13,7 +13,7 @@ public class Player {
         playerArray.add(this);
     }
 
-    static Player getPlayer(int id) throws InvalidNumOfPlayersException {
+    public static Player getPlayer(int id) throws InvalidNumOfPlayersException {
         if (id > playerArray.size()) {
             throw new InvalidNumOfPlayersException("You have tried to access an invalid player.");
         }

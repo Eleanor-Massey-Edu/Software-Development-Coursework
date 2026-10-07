@@ -15,7 +15,7 @@ public class CardDeck {
     
     }
 
-    static CardDeck getCardDeck(int id) throws InvalidNumOfDecksException {
+    public static CardDeck getCardDeck(int id) throws InvalidNumOfDecksException {
         if (id > cardDeckArray.size()) {
             throw new InvalidNumOfDecksException("You have tried to access an invalid deck.");
         }
