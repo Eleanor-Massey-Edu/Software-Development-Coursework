@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
-    private ArrayList<Integer> hand = new ArrayList<Integer>();
+    public ArrayList<Integer> hand = new ArrayList<Integer>();
     private int playerID;
     private static int totalPlayers = 0;
     public static ArrayList<Player> playerArray = new ArrayList<Player>();

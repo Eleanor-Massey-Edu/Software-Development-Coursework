@@ -47,7 +47,7 @@ public class CardGame {
         }
 
         for (int j = 1; j<= numPlayers; j++){
-            new TakeTurn(CardDeck.getCardDeck(j), CardDeck.getCardDeck((j % numPlayers) + 1 ) );
+            new TakeTurn(CardDeck.getCardDeck(j), CardDeck.getCardDeck((j % numPlayers) + 1 ), Player.getPlayer(j).hand);
             //Create a new thread, that has the correct target object, and immidiately add it to the array of thread objects
             playerThreadArray.add(new Thread(TakeTurn.getTakeTurn(j), "Player" + j + " thread"));
 
