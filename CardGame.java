@@ -14,11 +14,31 @@ public class CardGame {
     public static void setUp() {
         // Make scanner object (input)
         Scanner scanner = new Scanner(System.in);
+        boolean packValid = false;
+        Pack pack = null;
 
         //Ask user the number of players
         System.out.println("Please enter the number of players: ");
         String stringNumPlayers = scanner.nextLine();
         int numPlayers = Integer.parseInt(stringNumPlayers); // change to int
+
+        while (!packValid){
+            //Ask user for the pack to use for the game
+            System.out.println("Please enter location of pack to load: ");
+            String packLocation = scanner.nextLine();
+
+
+            try{ //try to instantiate the pack and if an error has been thrown, deal with it in the catch
+                pack = new Pack(packLocation, numPlayers);
+                packValid = true;
+            } catch (InvalidNumOfCardsException numex){
+                System.out.println("You have entered an invalid pack. " + numex.getMessage());
+            } catch (NumberFormatException numformat){
+                System.out.println("You have entered an invalid pack. The pack must only contain integers");
+            } catch (NegativeException ne){
+                System.out.println("You have entered an invalid pack. " + ne.getMessage());
+            }
+        }
 
         //create the required number of players, player threads and decks
         for (int i = 1; i <= numPlayers; i++) {
@@ -33,18 +53,10 @@ public class CardGame {
 
         }
 
-        //Ask user for the pack to use for the game
-        System.out.println("Please enter location of pack to load: ");
-        String packLocation = scanner.nextLine();
-
-        try{
-            Pack pack = new Pack(packLocation, numPlayers);
+        if (pack != null){
             pack.deal();
-        } catch (InvalidNumOfCardsException numex){
-            System.out.println(numex.getMessage());
-        } catch (NumberFormatException numformat){
-            System.out.println(numformat.getMessage());
         }
+        
 
 
     }
