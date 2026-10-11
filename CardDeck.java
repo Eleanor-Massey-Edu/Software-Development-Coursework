@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class CardDeck {
     private volatile ArrayList<Card> deck = new ArrayList<Card>();  //needs to be volatile because threads need to see when other threads update the deck
@@ -29,7 +31,7 @@ public class CardDeck {
     }
 
     public String getName(){
-        return "Deck " + this.deckID;
+        return "deck" + this.deckID;
     }
 
     public void addToDeck(Card card) {
@@ -40,5 +42,21 @@ public class CardDeck {
         Card drawnCard = deck.get(0);  //read the card value at the top of the deck
         deck.remove(0); //removed the card from the deck it has been drawn from
         return drawnCard;
+    }
+
+    public static void printDecks() {
+        for (CardDeck cardDeckObj:cardDeckArray) {
+            try {
+                FileWriter deckWriter = new FileWriter(cardDeckObj.getName() + "_output.txt");
+                String message = cardDeckObj.getName() + " contents: ";
+                for (Card card:cardDeckObj.deck) {
+                    message = message + card.getValue() + " "; 
+                }
+                deckWriter.write(message);
+                deckWriter.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

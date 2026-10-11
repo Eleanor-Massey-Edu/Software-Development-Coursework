@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class CardGame {
     //array of all the player threads
@@ -57,7 +59,18 @@ public class CardGame {
             pack.deal();
         }
         
+        for (int k = 1; k <= numPlayers; k++) {
+            try {
+                FileWriter playerWriter = new FileWriter("player" + k + "_output.txt");
+                ArrayList<Card> currentHand = Player.getHand(k);
+                String message = "player " + k + " initial hand " + currentHand.get(0).getValue() + " " +
+                + currentHand.get(1).getValue() + " " + currentHand.get(2).getValue() + " " + currentHand.get(3).getValue();
+                playerWriter.write(message);
+                playerWriter.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
 
-
+        }
     }
 }

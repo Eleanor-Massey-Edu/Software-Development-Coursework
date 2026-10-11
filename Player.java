@@ -25,6 +25,10 @@ public class Player {
         return this.playerID;
     }
 
+    public static ArrayList<Card> getHand(int id) {
+        return Player.getPlayer(id).hand;
+    }
+
     public void addToHand(Card card) {
         hand.add(card);
     }
