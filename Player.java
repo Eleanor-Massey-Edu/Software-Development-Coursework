@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Player {
-    public ArrayList<Integer> hand = new ArrayList<Integer>();
-    private int playerID;
+    public ArrayList<Card> hand = new ArrayList<Card>();
+    public int playerID;
     private static int totalPlayers = 0;
     public static ArrayList<Player> playerArray = new ArrayList<Player>();
 
@@ -21,7 +21,11 @@ public class Player {
         return playerArray.get(id - 1);
     }
 
-    public void addToHand(int card) {
+    public int getID(){
+        return this.playerID;
+    }
+
+    public void addToHand(Card card) {
         hand.add(card);
     }
 }

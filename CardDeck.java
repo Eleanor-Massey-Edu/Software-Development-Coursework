@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class CardDeck {
-    private ArrayList<Integer> deck = new ArrayList<Integer>();
+    private volatile ArrayList<Card> deck = new ArrayList<Card>();  //needs to be volatile because threads need to see when other threads update the deck
     private int deckID;
     private static int totalDecks = 0;
     public static ArrayList<CardDeck> cardDeckArray = new ArrayList<CardDeck>();
@@ -12,6 +12,7 @@ public class CardDeck {
         this.deckID = totalDecks;
 
         cardDeckArray.add(this);
+        System.out.println("made a new deck");
     
     }
 
@@ -23,7 +24,21 @@ public class CardDeck {
         return cardDeckArray.get(id - 1);
     }
 
-    public void addToDeck(int card) {
-        deck.add(card);
+    public int getSize(){
+        return deck.size();
+    }
+
+    public String getName(){
+        return "Deck " + this.deckID;
+    }
+
+    public void addToDeck(Card card) {
+        deck.add(card); //adds card to the bottom (end) of the deck
+    }
+
+    public Card draw(){
+        Card drawnCard = deck.get(0);  //read the card value at the top of the deck
+        deck.remove(0); //removed the card from the deck it has been drawn from
+        return drawnCard;
     }
 }

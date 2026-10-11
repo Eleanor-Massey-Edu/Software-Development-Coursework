@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Pack {
 
-    private ArrayList<Integer> packQueue = new ArrayList<>(); //make the LinkedList data structure that the pack will be stored in
+    private ArrayList<Card> packQueue = new ArrayList<Card>(); //make the LinkedList data structure that the pack will be stored in
 
 
     //Pack constructor
@@ -20,11 +20,12 @@ public class Pack {
 
                 //validate all the data is int and is positive and put in pack
                 count += 1;
-                int data = Integer.parseInt(stringData); 
+                Integer data = Integer.parseInt(stringData); 
                 if (data < 0) {
                     throw new NegativeException("The data must be non-negative");
                 }
-                packQueue.add(data);  //puts the next bit of data onto the tail of the linked list 
+                Card validCard = new Card(data);
+                packQueue.add(validCard);  //puts the next bit of data onto the tail of the linked list 
 
             }
     
@@ -41,7 +42,7 @@ public class Pack {
     public synchronized void deal() {
         for (int i = 1; i <= 4; i++) { // 4 cards total for each person's hand
             for (Player player: Player.playerArray) { // Do for each player
-                int cardToAdd = packQueue.get(0); // Retrieves and removes top card in the ArrayList pack
+                Card cardToAdd = packQueue.get(0); // Retrieves and removes top card in the ArrayList pack
                 player.addToHand(cardToAdd); // Add single card to player hand
                 packQueue.remove(0);
             }
@@ -50,7 +51,7 @@ public class Pack {
         for (int i = 1; i <= 4; i++) { // 4 cards total for each person's deck
             for (CardDeck deck: CardDeck.cardDeckArray) { // Do for each deck
                 if (!(CardDeck.cardDeckArray.isEmpty())) { // If cardDeckArray is not empty, keep dealing cards
-                    int cardToAdd = packQueue.get(0); // Retrieves and removes top card in the ArrayList pack
+                    Card cardToAdd = packQueue.get(0); // Retrieves and removes top card in the ArrayList pack
                     deck.addToDeck(cardToAdd); // Add single card to player deck
                     packQueue.remove(0);
                 }
