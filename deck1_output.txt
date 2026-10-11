@@ -1,0 +1,1 @@
+deck1 contents: 7 12 12 1 10 1 
