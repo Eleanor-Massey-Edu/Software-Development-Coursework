@@ -52,19 +52,19 @@ public class CardGame {
             //the target only needs the decks that the player given that target will need
             new TakeTurn(CardDeck.getCardDeck(j), CardDeck.getCardDeck((j % numPlayers) + 1 ), Player.getPlayer(j).hand, j);
             //Create a new thread, that has the correct target object, and immidiately add it to the array of thread objects
-            playerThreadArray.add(new Thread(TakeTurn.getTakeTurn(j), "Player " + j));
+            playerThreadArray.add(new Thread(TakeTurn.getTakeTurn(j), Integer.toString(j)));
         }
 
         if (pack != null){
             pack.deal();
         }
         
-        for (int k = 1; k <= numPlayers; k++) {
+        for (int k = 1; k <= numPlayers; k++) { // initiate initial hand line in playerX_output.txt
             try {
                 FileWriter playerWriter = new FileWriter("player" + k + "_output.txt");
                 ArrayList<Card> currentHand = Player.getHand(k);
                 String message = "player " + k + " initial hand " + currentHand.get(0).getValue() + " " +
-                + currentHand.get(1).getValue() + " " + currentHand.get(2).getValue() + " " + currentHand.get(3).getValue();
+                + currentHand.get(1).getValue() + " " + currentHand.get(2).getValue() + " " + currentHand.get(3).getValue() + "\n";
                 playerWriter.write(message);
                 playerWriter.close();
             } catch (IOException e) {

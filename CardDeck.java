@@ -14,7 +14,7 @@ public class CardDeck {
         this.deckID = totalDecks;
 
         cardDeckArray.add(this);
-        System.out.println("made a new deck");
+        //System.out.println("made a new deck");
     
     }
 

@@ -6,6 +6,7 @@ import java.util.Random;
 public class TakeTurn implements Runnable {
 
     public static volatile boolean gameFinished = false;
+    public static String winningThread = null;
 
     private CardDeck pickupDeck;
     private CardDeck discardDeck;
@@ -37,13 +38,6 @@ public class TakeTurn implements Runnable {
     @Override 
     public void run() {
         checkWin();
-        try {
-            FileWriter startWriter = new FileWriter(Thread.currentThread().getName() + "_output.txt");
-            startWriter.write("");
-            startWriter.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
         CardDeck firstDeck;
         CardDeck secondDeck;
         int finalPlayer = Player.playerArray.size();
@@ -68,8 +62,12 @@ public class TakeTurn implements Runnable {
                         //System.out.println(Thread.currentThread().getName() + " has both the locks on " + firstDeck.getName() + " and " + secondDeck.getName());  
                         Card newCard = this.pickupDeck.draw();
                         this.chooseAndDiscard(newCard);
-                        System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
-                        checkWin();
+                        //System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
+                        if (checkWin()) {
+                            writeWinOutputs();
+                        }
+                            //System.out.println("Win Output Ran, I am " + Thread.currentThread().getName());
+                        }
                     }
                 }
             
@@ -83,7 +81,6 @@ public class TakeTurn implements Runnable {
             }
         //doFinalOutputs
         }
-    }
 
     public void chooseAndDiscard(Card newCard){
         //logic to choose a card to discard
@@ -99,13 +96,13 @@ public class TakeTurn implements Runnable {
                 //add the discarded card to the discard deck
                 this.discardDeck.addToDeck(cardAtRandomPosition);
                 this.writePlayerActions(newCard, cardAtRandomPosition);
-                System.out.println("Outputting to file");
+                //System.out.println("Outputting to file");
             }
         }
         
     }
 
-    public void checkWin() {
+    public boolean checkWin() {
         int firstCardValue = hand.get(0).getValue();
         int counter = 0;
         for (Card card:hand){
@@ -115,27 +112,61 @@ public class TakeTurn implements Runnable {
         }
         if (counter == 4){ //if the hand that you have just changes now has 4 of the same value then they have won and the game is finished
             gameFinished = true;
-            System.out.println(Thread.currentThread().getName() + " wins");
+            System.out.println("player " + Thread.currentThread().getName() + " wins");
             CardDeck.printDecks();
+            //this.writeWinOutputs();
+            return gameFinished;
         } else {
             gameFinished = false;
+            return gameFinished;
         }
     }
 
     public void writePlayerActions(Card newCard, Card discardedCard) {
         try {
-            FileWriter actionWriter = new FileWriter(Thread.currentThread().getName() + "_output.txt", true);
-            String drawMessage = Thread.currentThread().getName() + " draws a " + newCard.getValue() + " from " + this.pickupDeck.getNameSpace() + "\n";
+            FileWriter actionWriter = new FileWriter("player" + Thread.currentThread().getName() + "_output.txt", true); // open in append mode
+            String drawMessage = "player " + Thread.currentThread().getName() + " draws a " + newCard.getValue() + " from " + this.pickupDeck.getNameSpace() + "\n";
             actionWriter.write(drawMessage);
-            String discardMessage = Thread.currentThread().getName() + " discards a " + discardedCard.getValue() + " to " + this.discardDeck.getNameSpace() + "\n";
+            String discardMessage = "player " + Thread.currentThread().getName() + " discards a " + discardedCard.getValue() + " to " + this.discardDeck.getNameSpace() + "\n";
             actionWriter.write(discardMessage);
-            String currentMessage = Thread.currentThread().getName() + " current hand is ";
+            String currentMessage = "player " + Thread.currentThread().getName() + " current hand is ";
             for (Card card:hand) {
                 currentMessage = currentMessage + card.getValue() + " ";
             }
             currentMessage = currentMessage + "\n";
             actionWriter.write(currentMessage);
             actionWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void writeWinOutputs() {
+        try {
+            FileWriter winWriter = new FileWriter("player" + Thread.currentThread().getName() + "_output.txt", true);
+            int winningThread = this.preferredNumber;
+            for (int k = 1; k <= takeTurnArray.size(); k++) {
+                if (k == winningThread) {
+                    String winMessage = "player " + k + " wins" +
+                    "\n" + "player " + k + " exits" + "\n" +
+                    "player " + k + " final hand: ";
+                    for (Card card:hand) {
+                        winMessage = winMessage + card.getValue() + " ";
+                    }
+                    winWriter.write(winMessage);
+                    winWriter.close();
+                } else {
+                    FileWriter loseWriter = new FileWriter("player" + k + "_output.txt", true);
+                    String loseMessage = "player " + winningThread + " has informed player " + k 
+                    + " that player " + winningThread + " has won" + "\n" + "player " + k + " exits" + "\n" +
+                    "player " + k + " hand: ";
+                    for (Card card:Player.getPlayer(k).hand) {
+                        loseMessage = loseMessage + card.getValue() + " ";
+                    }
+                    loseWriter.write(loseMessage);
+                    loseWriter.close();
+                }
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
