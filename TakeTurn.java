@@ -107,7 +107,6 @@ public class TakeTurn implements Runnable {
         if (counter == 4){ //if the hand that you have just changes now has 4 of the same value then they have won and the game is finished
             gameFinished = true;
             System.out.println(Thread.currentThread().getName() + " wins");
-            CardDeck.printDecks();
         } else {
             gameFinished = false;
         }
