@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -35,6 +37,13 @@ public class TakeTurn implements Runnable {
     @Override 
     public void run() {
         checkWin();
+        try {
+            FileWriter startWriter = new FileWriter(Thread.currentThread().getName() + "_output.txt");
+            startWriter.write("");
+            startWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         CardDeck firstDeck;
         CardDeck secondDeck;
         int finalPlayer = Player.playerArray.size();
@@ -43,7 +52,7 @@ public class TakeTurn implements Runnable {
         if (Thread.currentThread().getName().equals( "Player " + finalPlayer)){  //rearrange the order get the locks if it is the last player
             firstDeck = this.discardDeck;
             secondDeck = this.pickupDeck;
-            System.out.println("Rearranging order for last player so that the first deck is: " + firstDeck.getName() + " and the second deck is: " + secondDeck.getName());
+            //System.out.println("Rearranging order for last player so that the first deck is: " + firstDeck.getName() + " and the second deck is: " + secondDeck.getName());
         } else {
             firstDeck = this.pickupDeck;
             secondDeck = this.discardDeck;
@@ -51,12 +60,12 @@ public class TakeTurn implements Runnable {
 
         while (!gameFinished){
             if (pickupDeck.getSize() != 0){  //checks if there are cards left in the pickup deck to pickup from
-                System.out.println(Thread.currentThread().getName() + " trying to get past 1st lock on " + firstDeck.getName());
+                //System.out.println(Thread.currentThread().getName() + " trying to get past 1st lock on " + firstDeck.getName());
                 synchronized(firstDeck){
-                    System.out.println(Thread.currentThread().getName() + " has gotten past the first lock on " + firstDeck.getName());
-                    System.out.println(Thread.currentThread().getName() + " trying to get past 2nd lock on " + secondDeck.getName());
+                    //System.out.println(Thread.currentThread().getName() + " has gotten past the first lock on " + firstDeck.getName());
+                    //System.out.println(Thread.currentThread().getName() + " trying to get past 2nd lock on " + secondDeck.getName());
                     synchronized(secondDeck){
-                        System.out.println(Thread.currentThread().getName() + " has both the locks on " + firstDeck.getName() + " and " + secondDeck.getName());  
+                        //System.out.println(Thread.currentThread().getName() + " has both the locks on " + firstDeck.getName() + " and " + secondDeck.getName());  
                         Card newCard = this.pickupDeck.draw();
                         this.chooseAndDiscard(newCard);
                         System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
@@ -66,11 +75,11 @@ public class TakeTurn implements Runnable {
             
             try{
                 Thread.sleep(100);
-                System.out.println(Thread.currentThread().getName() + " has slept for 100");
+                //System.out.println(Thread.currentThread().getName() + " has slept for 100");
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println(Thread.currentThread().getName() + " has yeilded their locks");
+            //System.out.println(Thread.currentThread().getName() + " has yeilded their locks");
             }
         //doFinalOutputs
         }
@@ -87,12 +96,12 @@ public class TakeTurn implements Runnable {
             if (cardAtRandomPosition.getValue() != this.preferredNumber) {  //allowed to discard that card
                 hand.remove(cardAtRandomPosition); //removes the card that was chosen randomly
                 foundCardToDiscard = true;
-
                 //add the discarded card to the discard deck
                 this.discardDeck.addToDeck(cardAtRandomPosition);
+                this.writePlayerActions(newCard, cardAtRandomPosition);
+                System.out.println("Outputting to file");
             }
         }
-        
         
     }
 
@@ -110,6 +119,25 @@ public class TakeTurn implements Runnable {
             CardDeck.printDecks();
         } else {
             gameFinished = false;
+        }
+    }
+
+    public void writePlayerActions(Card newCard, Card discardedCard) {
+        try {
+            FileWriter actionWriter = new FileWriter(Thread.currentThread().getName() + "_output.txt", true);
+            String drawMessage = Thread.currentThread().getName() + " draws a " + newCard.getValue() + " from " + this.pickupDeck.getNameSpace() + "\n";
+            actionWriter.write(drawMessage);
+            String discardMessage = Thread.currentThread().getName() + " discards a " + discardedCard.getValue() + " to " + this.discardDeck.getNameSpace() + "\n";
+            actionWriter.write(discardMessage);
+            String currentMessage = Thread.currentThread().getName() + " current hand is ";
+            for (Card card:hand) {
+                currentMessage = currentMessage + card.getValue() + " ";
+            }
+            currentMessage = currentMessage + "\n";
+            actionWriter.write(currentMessage);
+            actionWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -34,6 +34,10 @@ public class CardDeck {
         return "deck" + this.deckID;
     }
 
+    public String getNameSpace(){
+        return "deck " + this.deckID;
+    }
+
     public void addToDeck(Card card) {
         deck.add(card); //adds card to the bottom (end) of the deck
     }
