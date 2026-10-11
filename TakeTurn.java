@@ -59,10 +59,11 @@ public class TakeTurn implements Runnable {
                         System.out.println(Thread.currentThread().getName() + " has both the locks on " + firstDeck.getName() + " and " + secondDeck.getName());  
                         Card newCard = this.pickupDeck.draw();
                         this.chooseAndDiscard(newCard);
+                        System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
                         checkWin();
                     }
                 }
-            }
+            
             try{
                 Thread.sleep(100);
                 System.out.println(Thread.currentThread().getName() + " has slept for 100");
@@ -70,9 +71,9 @@ public class TakeTurn implements Runnable {
                 System.out.println(e.getMessage());
             }
             System.out.println(Thread.currentThread().getName() + " has yeilded their locks");
-        }
-        
+            }
         //doFinalOutputs
+        }
     }
 
     public void chooseAndDiscard(Card newCard){
