@@ -52,7 +52,7 @@ public class TakeTurn implements Runnable {
             secondDeck = this.discardDeck;
         }
 
-        while (!gameFinished){
+        while (!TakeTurn.gameFinished){
             if (pickupDeck.getSize() != 0){  //checks if there are cards left in the pickup deck to pickup from
                 //System.out.println(Thread.currentThread().getName() + " trying to get past 1st lock on " + firstDeck.getName());
                 synchronized(firstDeck){
@@ -62,6 +62,7 @@ public class TakeTurn implements Runnable {
                         //System.out.println(Thread.currentThread().getName() + " has both the locks on " + firstDeck.getName() + " and " + secondDeck.getName());  
                         Card newCard = this.pickupDeck.draw();
                         this.chooseAndDiscard(newCard);
+                        //thread has taken their turn
                         //System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
                         if (checkWin()) {
                             writeWinOutputs();
@@ -111,14 +112,14 @@ public class TakeTurn implements Runnable {
             }
         }
         if (counter == 4){ //if the hand that you have just changes now has 4 of the same value then they have won and the game is finished
-            gameFinished = true;
+            TakeTurn.gameFinished = true;
             System.out.println("player " + Thread.currentThread().getName() + " wins");
             CardDeck.printDecks();
             //this.writeWinOutputs();
-            return gameFinished;
+            return TakeTurn.gameFinished;
         } else {
-            gameFinished = false;
-            return gameFinished;
+            TakeTurn.gameFinished = false;
+            return TakeTurn.gameFinished;
         }
     }
 
