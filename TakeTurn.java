@@ -40,10 +40,11 @@ public class TakeTurn implements Runnable {
         checkWin();
         CardDeck firstDeck;
         CardDeck secondDeck;
-        int finalPlayer = Player.playerArray.size();
+        Integer finalPlayer = Player.playerArray.size();
+        String stringFinalPlayer = finalPlayer.toString();
         //System.out.println(Thread.currentThread().getName());
         //System.out.println("Thinks the final player is: " + "Player " + finalPlayer);
-        if (Thread.currentThread().getName().equals( "Player " + finalPlayer)){  //rearrange the order get the locks if it is the last player
+        if (Thread.currentThread().getName().equals(stringFinalPlayer)){  //rearrange the order get the locks if it is the last player
             firstDeck = this.discardDeck;
             secondDeck = this.pickupDeck;
             //System.out.println("Rearranging order for last player so that the first deck is: " + firstDeck.getName() + " and the second deck is: " + secondDeck.getName());

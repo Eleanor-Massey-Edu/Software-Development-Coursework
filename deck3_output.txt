@@ -1,1 +1,1 @@
-deck3 contents: 4 12 3 13 
+deck3 contents: 7 10 3 
