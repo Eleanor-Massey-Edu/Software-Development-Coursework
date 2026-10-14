@@ -64,10 +64,11 @@ public class TakeTurn implements Runnable {
                         this.chooseAndDiscard(newCard);
                         //thread has taken their turn
                         //System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
-                        if (checkWin()) {
-                            writeWinOutputs();
+                        String winningThread = checkWin();
+                        if (winningThread != null) {
+                            writeWinOutputs(winningThread);
+                            System.out.println(TakeTurn.gameFinished);
                         }
-                            //System.out.println("Win Output Ran, I am " + Thread.currentThread().getName());
                         }
                     }
                 }
@@ -103,7 +104,7 @@ public class TakeTurn implements Runnable {
         
     }
 
-    public boolean checkWin() {
+    public String checkWin() {
         int firstCardValue = hand.get(0).getValue();
         int counter = 0;
         for (Card card:hand){
@@ -116,10 +117,9 @@ public class TakeTurn implements Runnable {
             System.out.println("player " + Thread.currentThread().getName() + " wins");
             CardDeck.printDecks();
             //this.writeWinOutputs();
-            return TakeTurn.gameFinished;
+            return Thread.currentThread().getName();
         } else {
-            TakeTurn.gameFinished = false;
-            return TakeTurn.gameFinished;
+            return null;
         }
     }
 
@@ -142,16 +142,16 @@ public class TakeTurn implements Runnable {
         }
     }
 
-    public void writeWinOutputs() {
+    public void writeWinOutputs(String winnerID) {
+        Integer winningThread = Integer.parseInt(winnerID);
         try {
-            FileWriter winWriter = new FileWriter("player" + Thread.currentThread().getName() + "_output.txt", true);
-            int winningThread = this.preferredNumber;
             for (int k = 1; k <= takeTurnArray.size(); k++) {
                 if (k == winningThread) {
+                    FileWriter winWriter = new FileWriter("player" + k + "_output.txt", true);
                     String winMessage = "player " + k + " wins" +
                     "\n" + "player " + k + " exits" + "\n" +
                     "player " + k + " final hand: ";
-                    for (Card card:hand) {
+                    for (Card card:Player.getPlayer(k).hand) {
                         winMessage = winMessage + card.getValue() + " ";
                     }
                     winWriter.write(winMessage);

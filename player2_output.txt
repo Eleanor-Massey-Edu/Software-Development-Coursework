@@ -3,11 +3,5 @@ player 2 draws a 4 from deck 2
 player 2 discards a 3 to deck 3
 player 2 current hand is 4 9 12 4 
 player 2 draws a 12 from deck 2
-player 2 discards a 4 to deck 3
-player 2 current hand is 9 12 4 12 
-player 2 draws a 3 from deck 2
-player 2 discards a 4 to deck 3
-player 2 current hand is 9 12 12 3 
-player 2 draws a 3 from deck 2
-player 2 discards a 9 to deck 3
-player 2 current hand is 12 12 3 3 
+player 2 discards a 12 to deck 3
+player 2 current hand is 4 9 4 12 
