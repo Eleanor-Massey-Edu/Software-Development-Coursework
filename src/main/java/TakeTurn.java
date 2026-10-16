@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import exceptions.InvalidNumOfTakeTurnObjectsException;
+
 public class TakeTurn implements Runnable {
 
     public static volatile boolean gameFinished = false;

@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidNumOfCardsException extends RuntimeException {
 
     public InvalidNumOfCardsException(String message) {

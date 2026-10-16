@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import exceptions.InvalidNumOfDecksException;
+
 public class CardDeck {
     private volatile ArrayList<Card> deck = new ArrayList<Card>();  //needs to be volatile because threads need to see when other threads update the deck
     private int deckID;

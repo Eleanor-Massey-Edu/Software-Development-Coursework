@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.NegativeException;
+import exceptions.InvalidNumOfCardsException;
+
 public class Pack {
 
     private ArrayList<Card> packQueue = new ArrayList<Card>(); //make the LinkedList data structure that the pack will be stored in

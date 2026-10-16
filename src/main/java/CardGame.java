@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.NegativeException;
+import exceptions.InvalidNumOfCardsException;
+
 public class CardGame {
     //array of all the player threads
     public static ArrayList<Thread> playerThreadArray = new ArrayList<Thread>();

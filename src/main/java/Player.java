@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import exceptions.InvalidNumOfPlayersException;
+
 public class Player {
     public ArrayList<Card> hand = new ArrayList<Card>();
     public int playerID;

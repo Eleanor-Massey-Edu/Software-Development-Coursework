@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidNumOfDecksException extends RuntimeException {
 
     public InvalidNumOfDecksException(String message) {
