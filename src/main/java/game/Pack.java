@@ -1,9 +1,12 @@
+package game;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import exceptions.NegativeException;
+import game.Card; //need this even though it is saying we don't use it. Ln 33.
 import exceptions.InvalidNumOfCardsException;
 
 public class Pack {
@@ -12,35 +15,33 @@ public class Pack {
 
 
     //Pack constructor
-    Pack(String packLocation, int numPlayers) throws NegativeException{
+    public Pack(String packLocation, int numPlayers) throws NegativeException, FileNotFoundException{
         int count = 0;
-        File packFile = new File(packLocation); //makes a File object that we can read
+        File packFile = new File(packLocation); //makes a File object that we can read. 
 
-        try (Scanner scanner = new Scanner (packFile)) {  //make a Scanner that reads the packFile
-            while (scanner.hasNextLine()){
+        Scanner scanner = new Scanner (packFile);  //make a Scanner that reads the packFile. May throw FileNotFoundException 
+        while (scanner.hasNextLine()){
 
-                String stringData = scanner.nextLine(); //read the next line of the packFile
+            String stringData = scanner.nextLine(); //read the next line of the packFile
 
-                //validate all the data is int and is positive and put in pack
-                count += 1;
-                Integer data = Integer.parseInt(stringData); 
-                if (data < 0) {
-                    throw new NegativeException("The data must be non-negative");
-                }
-                Card validCard = new Card(data);
-                packQueue.add(validCard);  //puts the next bit of data onto the tail of the linked list 
-
+            //validate all the data is int and is positive and put in pack
+            count += 1;
+            Integer data = Integer.parseInt(stringData); 
+            if (data < 0) {
+                throw new NegativeException("The data must be non-negative");
             }
-    
-            //after the while loop, check the counter to see how many cards are in the pack
-            if (count != 8*numPlayers){
-                throw new InvalidNumOfCardsException("There are an invalid number of cards in the deck provided");
-            }
+            Card validCard = new Card(data);
+            packQueue.add(validCard);  //puts the next bit of data onto the tail of the linked list 
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Could not find a file in that location");
         }
+
+        //after the while loop, check the counter to see how many cards are in the pack
+        if (count != 8*numPlayers){
+            throw new InvalidNumOfCardsException("There are an invalid number of cards in the deck provided");
         }
+
+        
+    }
     
     public synchronized void deal() {
         for (int i = 1; i <= 4; i++) { // 4 cards total for each person's hand

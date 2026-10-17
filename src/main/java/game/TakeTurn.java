@@ -1,9 +1,12 @@
+package game;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import exceptions.InvalidNumOfTakeTurnObjectsException;
+import game.Card;
 
 public class TakeTurn implements Runnable {
 
@@ -63,8 +66,12 @@ public class TakeTurn implements Runnable {
                     //System.out.println(Thread.currentThread().getName() + " trying to get past 2nd lock on " + secondDeck.getName());
                     synchronized(secondDeck){
                         //System.out.println(Thread.currentThread().getName() + " has both the locks on " + firstDeck.getName() + " and " + secondDeck.getName());  
-                        Card newCard = this.pickupDeck.draw();
-                        this.chooseAndDiscard(newCard);
+                        try{
+                            Card newCard = this.pickupDeck.draw();
+                            this.chooseAndDiscard(newCard);
+                        } catch (IndexOutOfBoundsException ex){
+                            //if there is not a card left to draw from their pickup deck, do nothing and don't try to chooseAndDiscard()
+                        }
                         //thread has taken their turn
                         //System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
                         String winningThread = checkWin();
@@ -154,7 +161,7 @@ public class TakeTurn implements Runnable {
                     String winMessage = "player " + k + " wins" +
                     "\n" + "player " + k + " exits" + "\n" +
                     "player " + k + " final hand: ";
-                    for (Card card:Player.getPlayer(k).hand) {
+                    for (Card card:Player.getHand(k)) {
                         winMessage = winMessage + card.getValue() + " ";
                     }
                     winWriter.write(winMessage);
@@ -164,7 +171,7 @@ public class TakeTurn implements Runnable {
                     String loseMessage = "player " + winningThread + " has informed player " + k 
                     + " that player " + winningThread + " has won" + "\n" + "player " + k + " exits" + "\n" +
                     "player " + k + " hand: ";
-                    for (Card card:Player.getPlayer(k).hand) {
+                    for (Card card:Player.getHand(k)) {
                         loseMessage = loseMessage + card.getValue() + " ";
                     }
                     loseWriter.write(loseMessage);

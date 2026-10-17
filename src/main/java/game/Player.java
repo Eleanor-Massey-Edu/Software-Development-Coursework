@@ -1,14 +1,17 @@
+package game;
+
 import java.util.ArrayList;
 
 import exceptions.InvalidNumOfPlayersException;
+import game.Card;
 
 public class Player {
-    public ArrayList<Card> hand = new ArrayList<Card>();
+    private ArrayList<Card> hand = new ArrayList<Card>();
     public int playerID;
     private static int totalPlayers = 0;
     public static ArrayList<Player> playerArray = new ArrayList<Player>();
 
-    Player() {
+    public Player() {
         totalPlayers += 1;
         this.playerID = totalPlayers;
 

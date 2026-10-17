@@ -1,7 +1,9 @@
+package game;
+
 public class Card {
     private Integer value;
     
-    Card(Integer value){
+    public Card(Integer value){
         this.value = value;
     }
 
