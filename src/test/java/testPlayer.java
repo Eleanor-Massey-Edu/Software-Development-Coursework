@@ -22,11 +22,11 @@ public class testPlayer {
 
 
     @BeforeAll 
-    void setupPlayers(){
-        player1 = new Player();
-        player2 = new Player();
-        deck1 = new CardDeck();
-        deck2 = new CardDeck();
+    static void setupPlayers(){
+        Player player1 = new Player();
+        Player player2 = new Player();
+        CardDeck deck1 = new CardDeck();
+        CardDeck deck2 = new CardDeck();
         try{ //have to put in a try block but since the path is hard coded it can't be wrong
             Pack pack1 = new Pack("src/test/resources/testTwo.txt",2);
             pack1.deal();

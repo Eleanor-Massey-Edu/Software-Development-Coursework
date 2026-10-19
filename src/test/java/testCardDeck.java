@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
 
@@ -10,10 +12,28 @@ import game.CardDeck;
 import game.Card;
 
 public class testCardDeck {
-    CardDeck deck1 = new CardDeck();
-    CardDeck deck2 = new CardDeck();
-    CardDeck deck3 = new CardDeck();
-    CardDeck deck4 = new CardDeck();
+    
+    public static CardDeck deck1;
+    public static CardDeck deck2;
+    public static CardDeck deck3;
+    public static CardDeck deck4;
+    public static CardDeck deck5;
+    public static CardDeck deck6;
+    public static CardDeck deck7;
+    public static CardDeck deck8;
+
+    @BeforeAll 
+    static void setup() {
+        deck1 = new CardDeck();
+        deck2 = new CardDeck();
+        deck3 = new CardDeck();
+        deck4 = new CardDeck();
+        deck5 = new CardDeck();
+        deck6 = new CardDeck();
+        deck7 = new CardDeck();
+        deck8 = new CardDeck();
+    }
+    
     @Test 
     @Tag("unit")
     void testCardDeckGetMethods(){
@@ -63,15 +83,15 @@ public class testCardDeck {
         Card card7 = new Card(11);
         Card card8 = new Card(4);
         Card card9 = new Card(9);
-        deck1.addToDeck(card1);
-        deck1.addToDeck(card2);
-        deck2.addToDeck(card3);
-        deck2.addToDeck(card4);
-        deck3.addToDeck(card5);
-        deck3.addToDeck(card6);
-        deck3.addToDeck(card7);
-        deck4.addToDeck(card8);
-        deck4.addToDeck(card9);
+        deck5.addToDeck(card1);
+        deck5.addToDeck(card2);
+        deck6.addToDeck(card3);
+        deck6.addToDeck(card4);
+        deck7.addToDeck(card5);
+        deck7.addToDeck(card6);
+        deck7.addToDeck(card7);
+        deck8.addToDeck(card8);
+        deck8.addToDeck(card9);
         
         CardDeck.printDecks();
         //check the output files. 

@@ -1,1 +1,1 @@
-player 1 initial hand 1 1 1 1
+player 1 initial hand 10 9 12 12

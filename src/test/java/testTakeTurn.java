@@ -12,13 +12,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
 
+//For some reason have to import the class you are wanting to test even though they are in the same package
 import game.CardDeck;
 import game.Pack;
 import game.Player;
 import game.Card;
-//For some reason have to import the class you are wanting to test even though they are in the same package
 import game.TakeTurn;
 import game.CardGame;
+
 
 public class testTakeTurn {
 
@@ -37,7 +38,7 @@ public class testTakeTurn {
     }
 
     @Test
-    @Tag("unit")
+    @Tag("integration")
     void testAtomicCardDrawHandCount() {
         TakeTurn player1TakeTurn = new TakeTurn(CardDeck.getCardDeck(1), CardDeck.getCardDeck(2), Player.getHand(1), 1);
         TakeTurn player2TakeTurn = new TakeTurn(CardDeck.getCardDeck(2), CardDeck.getCardDeck(1), Player.getHand(2), 2);
@@ -71,7 +72,7 @@ public class testTakeTurn {
         Thread t1*/
 
     @Test 
-    @Tag("unit")
+    @Tag("integration")
     void testCorrectDiscardCheck(){ // Test to see if players are discarding the correct cards, i.e. player 1 is not discarding 1s
         TakeTurn player1TakeTurn = new TakeTurn(CardDeck.getCardDeck(1), CardDeck.getCardDeck(2), Player.getHand(1), 1);
         TakeTurn player2TakeTurn = new TakeTurn(CardDeck.getCardDeck(2), CardDeck.getCardDeck(1), Player.getHand(2), 2);
@@ -91,7 +92,6 @@ public class testTakeTurn {
 
     @Test
     @Tag("unit")
-
     void testFIFOBehaviour() {
         TakeTurn player1TakeTurn = new TakeTurn(CardDeck.getCardDeck(1), CardDeck.getCardDeck(2), Player.getHand(1), 1);
         TakeTurn player2TakeTurn = new TakeTurn(CardDeck.getCardDeck(2), CardDeck.getCardDeck(1), Player.getHand(2), 2);

@@ -7,7 +7,7 @@ import org.junit.platform.suite.api.SelectClasses;
 
 @Suite
 @IncludeTags("unit")
-@SelectClasses(testCard.class)
+@SelectClasses({testCard.class, testTakeTurn.class, testPack.class, testPlayer.class, testCardDeck.class})
 public class UnitTestSuite {
 }
 
