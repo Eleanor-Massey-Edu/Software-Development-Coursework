@@ -43,7 +43,7 @@ public class Pack {
         
     }
     
-    public synchronized void deal() {
+    public void deal() {
         for (int i = 1; i <= 4; i++) { // 4 cards total for each person's hand
             for (Player player: Player.playerArray) { // Do for each player
                 Card cardToAdd = packQueue.get(0); // Retrieves and removes top card in the ArrayList pack
