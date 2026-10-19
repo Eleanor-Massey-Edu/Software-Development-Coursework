@@ -9,29 +9,38 @@ player 3 draws a 12 from deck 3
 player 3 discards a 1 to deck 4
 player 3 current hand is 10 1 9 12 
 player 3 draws a 7 from deck 3
-player 3 discards a 9 to deck 4
-player 3 current hand is 10 1 12 7 
-player 3 draws a 3 from deck 3
-player 3 discards a 10 to deck 4
-player 3 current hand is 1 12 7 3 
-player 3 draws a 4 from deck 3
 player 3 discards a 12 to deck 4
-player 3 current hand is 1 7 3 4 
+player 3 current hand is 10 1 9 7 
+player 3 draws a 4 from deck 3
+player 3 discards a 10 to deck 4
+player 3 current hand is 1 9 7 4 
+player 3 draws a 12 from deck 3
+player 3 discards a 9 to deck 4
+player 3 current hand is 1 7 4 12 
 player 3 draws a 9 from deck 3
+player 3 discards a 9 to deck 4
+player 3 current hand is 1 7 4 12 
+player 3 draws a 4 from deck 3
 player 3 discards a 1 to deck 4
-player 3 current hand is 7 3 4 9 
+player 3 current hand is 7 4 12 4 
+player 3 draws a 3 from deck 3
+player 3 discards a 7 to deck 4
+player 3 current hand is 4 12 4 3 
 player 3 draws a 3 from deck 3
 player 3 discards a 4 to deck 4
-player 3 current hand is 7 3 9 3 
+player 3 current hand is 12 4 3 3 
+player 3 draws a 5 from deck 3
+player 3 discards a 5 to deck 4
+player 3 current hand is 12 4 3 3 
 player 3 draws a 4 from deck 3
-player 3 discards a 7 to deck 4
-player 3 current hand is 3 9 3 4 
+player 3 discards a 4 to deck 4
+player 3 current hand is 12 4 3 3 
+player 3 draws a 12 from deck 3
+player 3 discards a 4 to deck 4
+player 3 current hand is 12 3 3 12 
 player 3 draws a 12 from deck 3
 player 3 discards a 12 to deck 4
-player 3 current hand is 3 9 3 4 
-player 3 draws a 4 from deck 3
-player 3 discards a 9 to deck 4
-player 3 current hand is 3 3 4 4 
-player 1 has informed player 3 that player 1 has won
+player 3 current hand is 3 3 12 12 
+player 4 has informed player 3 that player 4 has won
 player 3 exits
-player 3 hand: 3 3 4 4 
+player 3 hand: 3 3 12 12 

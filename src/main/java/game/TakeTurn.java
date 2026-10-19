@@ -62,7 +62,7 @@ public class TakeTurn implements Runnable {
             secondDeck = this.discardDeck;
         }
 
-        System.out.println("Gotten to the while loop but the game finished is already: " + TakeTurn.gameFinished);
+        //System.out.println("Gotten to the while loop but the game finished is already: " + TakeTurn.gameFinished);
         while (!TakeTurn.gameFinished){
             if (pickupDeck.getSize() != 0){  //checks if there are cards left in the pickup deck to pickup from
                 //System.out.println(Thread.currentThread().getName() + " trying to get past 1st lock on " + firstDeck.getName());
@@ -97,7 +97,8 @@ public class TakeTurn implements Runnable {
             //System.out.println(Thread.currentThread().getName() + " has yeilded their locks");
             }
         //doFinalOutputs
-        if (winningThreads != null & Thread.currentThread().getName() == winningThreads.get(0)) { //only allow one thread to run writeWinOutputs, and the winning thread is guaranteed to pass this if statement
+        System.out.println(winningThreads + " from " + Thread.currentThread().getName());
+        if (winningThreads != null && Thread.currentThread().getName() == winningThreads.get(0)) { //only allow one thread to run writeWinOutputs, and the winning thread is guaranteed to pass this if statement
             System.out.println(Thread.currentThread().getName() + " is writing the win outputs, list is " + winningThreads);
             System.out.println("player " + winningThreads.get(0) + " wins");
             writeWinOutputs(winningThreads.get(0)); //choose the first thread that won to be the winner that's written out

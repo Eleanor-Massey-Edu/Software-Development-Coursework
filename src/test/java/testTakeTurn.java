@@ -24,7 +24,7 @@ public class testTakeTurn {
         }
         TakeTurn player1TakeTurn = new TakeTurn(CardDeck.getCardDeck(1), CardDeck.getCardDeck(2), Player.getHand(1), 1);
         TakeTurn player2TakeTurn = new TakeTurn(CardDeck.getCardDeck(2), CardDeck.getCardDeck(1), Player.getHand(2), 2);
-        playerThreadArray.add(new Thread(player1TakeTurn, "1"));
+        Player.playerThreadArray.add(new Thread(player1TakeTurn, "1"));
         Thread t1
     }
 
