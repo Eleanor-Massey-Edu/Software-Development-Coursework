@@ -53,7 +53,7 @@ public class TakeTurn implements Runnable {
         String stringFinalPlayer = finalPlayer.toString();
         //System.out.println(Thread.currentThread().getName());
         //System.out.println("Thinks the final player is: " + "Player " + finalPlayer);
-        if (Thread.currentThread().getName().equals(stringFinalPlayer)){  //rearrange the order get the locks if it is the last player
+        if (Thread.currentThread().getName().equals(stringFinalPlayer)){  //rearrange the order of getting the locks if it is the last player, to avoid circular pattern deadlock
             firstDeck = this.discardDeck;
             secondDeck = this.pickupDeck;
             //System.out.println("Rearranging order for last player so that the first deck is: " + firstDeck.getName() + " and the second deck is: " + secondDeck.getName());
@@ -128,10 +128,10 @@ public class TakeTurn implements Runnable {
 
     public String checkWin() {
         System.out.println("Check win has been called");
-        int firstCardValue = hand.get(0).getValue();
+        int firstCardValue = hand.get(0).getValue(); // take the first card in hand to start check if all are the same value
         int counter = 0;
         for (Card card:hand){
-            if (card.getValue() == firstCardValue){
+            if (card.getValue() == firstCardValue){ // if the sequential cards are equal in value, increase the counter
                 counter += 1;
             }
         }
