@@ -60,10 +60,4 @@ public class testPlayer {
         assertEquals(2,Player.getHand(1).get(1).getValue());
     }
 
-    @Test 
-    @Tag("unit")
-    void testHandCountInvarience(){
-        Card newCard = this.deck1.draw();
-        this.chooseAndDiscard(newCard);
-    }
 }

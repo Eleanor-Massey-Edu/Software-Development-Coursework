@@ -140,7 +140,7 @@ public class TakeTurn implements Runnable {
             //System.out.println("player " + Thread.currentThread().getName() + " wins");
             CardDeck.printDecks();
             //this.writeWinOutputs();
-            return Thread.currentThread().getName(); //??if 2 threads have won at the same time, cannot let them both writeWinOutputs so have to return only one
+            return Thread.currentThread().getName();
         } else {
             return null;
         }
