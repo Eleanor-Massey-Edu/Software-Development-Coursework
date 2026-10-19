@@ -42,7 +42,8 @@ public class TakeTurn implements Runnable {
 
     @Override 
     public void run() {
-        checkWin();
+        winningThread = checkWin();
+        //System.out.println("gameFinished is already: " + TakeTurn.gameFinished);
         CardDeck firstDeck;
         CardDeck secondDeck;
         Integer finalPlayer = Player.playerArray.size();
@@ -58,6 +59,7 @@ public class TakeTurn implements Runnable {
             secondDeck = this.discardDeck;
         }
 
+        System.out.println("Gotten to the while loop but the game finished is already: " + TakeTurn.gameFinished);
         while (!TakeTurn.gameFinished){
             if (pickupDeck.getSize() != 0){  //checks if there are cards left in the pickup deck to pickup from
                 //System.out.println(Thread.currentThread().getName() + " trying to get past 1st lock on " + firstDeck.getName());
@@ -69,16 +71,13 @@ public class TakeTurn implements Runnable {
                         try{
                             Card newCard = this.pickupDeck.draw();
                             this.chooseAndDiscard(newCard);
+                            System.out.println("player " + Thread.currentThread().getName() + " has chosen and discarded");
                         } catch (IndexOutOfBoundsException ex){
                             //if there is not a card left to draw from their pickup deck, do nothing and don't try to chooseAndDiscard()
                         }
                         //thread has taken their turn
                         //System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
-                        String winningThread = checkWin();
-                        if (winningThread != null) {
-                            writeWinOutputs(winningThread);
-                            //System.out.println(TakeTurn.gameFinished);
-                        }
+                        winningThread = checkWin();
                         }
                     }
                 }
@@ -92,6 +91,10 @@ public class TakeTurn implements Runnable {
             //System.out.println(Thread.currentThread().getName() + " has yeilded their locks");
             }
         //doFinalOutputs
+        if (winningThread != null) {
+            writeWinOutputs(winningThread);
+            //System.out.println(TakeTurn.gameFinished);
+        }
         }
 
     public void chooseAndDiscard(Card newCard){
@@ -115,6 +118,7 @@ public class TakeTurn implements Runnable {
     }
 
     public String checkWin() {
+        System.out.println("Check win has been called");
         int firstCardValue = hand.get(0).getValue();
         int counter = 0;
         for (Card card:hand){
@@ -152,21 +156,21 @@ public class TakeTurn implements Runnable {
         }
     }
 
-    public void writeWinOutputs(String winnerID) { 
+    public static void writeWinOutputs(String winnerID) { 
         Integer winningThread = Integer.parseInt(winnerID);
         try {
-            for (int k = 1; k <= takeTurnArray.size(); k++) {
-                if (k == winningThread) {
+            for (int k = 1; k <= takeTurnArray.size(); k++) { //go round all the threads and write appropriate outputs
+                if (k == winningThread) { //write the winning thread's output file
                     FileWriter winWriter = new FileWriter("player" + k + "_output.txt", true);
                     String winMessage = "player " + k + " wins" +
-                    "\n" + "player " + k + " exits" + "\n" +
-                    "player " + k + " final hand: ";
+                                        "\n" + "player " + k + " exits" + "\n" +
+                                        "player " + k + " final hand: ";
                     for (Card card:Player.getHand(k)) {
                         winMessage = winMessage + card.getValue() + " ";
                     }
                     winWriter.write(winMessage);
                     winWriter.close();
-                } else {
+                } else {  //write one of the loser thread's output file
                     FileWriter loseWriter = new FileWriter("player" + k + "_output.txt", true);
                     String loseMessage = "player " + winningThread + " has informed player " + k 
                     + " that player " + winningThread + " has won" + "\n" + "player " + k + " exits" + "\n" +
