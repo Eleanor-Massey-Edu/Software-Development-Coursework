@@ -1,0 +1,13 @@
+player 8 initial hand 3 1 11 13
+player 8 draws a 3 from deck 8
+player 8 discards a 11 to deck 9
+player 8 current hand is 3 1 13 3 
+player 8 draws a 1 from deck 8
+player 8 discards a 3 to deck 9
+player 8 current hand is 1 13 3 1 
+player 8 draws a 11 from deck 8
+player 8 discards a 3 to deck 9
+player 8 current hand is 1 13 1 11 
+player 5 has informed player 8 that player 5 has won
+player 8 exits
+player 8 hand: 1 13 1 11 
