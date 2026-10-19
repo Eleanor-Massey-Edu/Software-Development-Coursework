@@ -12,6 +12,7 @@ public class TakeTurn implements Runnable {
 
     public static volatile boolean gameFinished = false;
     public static String winningThread = null;
+    public static volatile ArrayList<String> winningThreads = new ArrayList<String>();
 
     private CardDeck pickupDeck;
     private CardDeck discardDeck;
@@ -42,7 +43,9 @@ public class TakeTurn implements Runnable {
 
     @Override 
     public void run() {
+        
         winningThread = checkWin();
+        
         //System.out.println("gameFinished is already: " + TakeTurn.gameFinished);
         CardDeck firstDeck;
         CardDeck secondDeck;
@@ -78,6 +81,9 @@ public class TakeTurn implements Runnable {
                         //thread has taken their turn
                         //System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
                         winningThread = checkWin();
+                        if (winningThread != null){ //if there has been a winning thread, add it to the list of threads that have won this cycle of the while loop
+                            winningThreads.add(winningThread);
+                        }
                         }
                     }
                 }
@@ -91,8 +97,10 @@ public class TakeTurn implements Runnable {
             //System.out.println(Thread.currentThread().getName() + " has yeilded their locks");
             }
         //doFinalOutputs
-        if (winningThread != null) {
-            writeWinOutputs(winningThread);
+        if (winningThreads != null & Thread.currentThread().getName() == winningThreads.get(0)) { //only allow one thread to run writeWinOutputs, and the winning thread is guaranteed to pass this if statement
+            System.out.println(Thread.currentThread().getName() + " is writing the win outputs, list is " + winningThreads);
+            System.out.println("player " + winningThreads.get(0) + " wins");
+            writeWinOutputs(winningThreads.get(0)); //choose the first thread that won to be the winner that's written out
             //System.out.println(TakeTurn.gameFinished);
         }
         }
@@ -128,7 +136,7 @@ public class TakeTurn implements Runnable {
         }
         if (counter == 4){ //if the hand that you have just changes now has 4 of the same value then they have won and the game is finished
             TakeTurn.gameFinished = true;
-            System.out.println("player " + Thread.currentThread().getName() + " wins");
+            //System.out.println("player " + Thread.currentThread().getName() + " wins");
             CardDeck.printDecks();
             //this.writeWinOutputs();
             return Thread.currentThread().getName(); //??if 2 threads have won at the same time, cannot let them both writeWinOutputs so have to return only one
