@@ -1,7 +1,11 @@
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,6 +16,8 @@ import org.junit.jupiter.api.Tag;
 import game.Pack;
 import game.Player;
 import game.CardDeck;
+import game.CardGame;
+import game.TakeTurn;
 import exceptions.InvalidNumOfCardsException;
 import exceptions.NegativeException;
 
@@ -93,5 +99,27 @@ public class testPack {
         assertEquals(12, CardDeck.getCardDeck(1).deck.get(3).getValue());
         assertEquals(9, CardDeck.getCardDeck(2).deck.get(3).getValue());
 
+    }
+
+    @Test
+    @Tag("unit")
+    void testImmediateWin() {
+
+        String simulatedInput = "2\nsrc/test/resources/testImmediateWinTwo.txt";
+
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes(StandardCharsets.UTF_8)));
+
+        Scanner scanner = new Scanner(System.in);
+        CardGame.setUp(scanner);
+
+        boolean hasWon = false;
+
+        TakeTurn player1TakeTurn = new TakeTurn(CardDeck.getCardDeck(1), CardDeck.getCardDeck(2), Player.getHand(1), 1);
+
+        if (player1TakeTurn.checkWin() != null) {
+            hasWon = true;
+        }
+
+        assertTrue(hasWon, "Player should win immediately.");
     }
 }
