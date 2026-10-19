@@ -45,7 +45,6 @@ public class CardGame {
             try{ //try to instantiate the pack and if an error has been thrown, deal with it in the catch
                 pack = new Pack(packLocation, numPlayers);
                 packValid = true;
-                System.out.println("packValid has been set to true");
             } catch (InvalidNumOfCardsException numex){
                 System.out.println("You have entered an invalid pack. " + numex.getMessage());
             } catch (NumberFormatException numformat){

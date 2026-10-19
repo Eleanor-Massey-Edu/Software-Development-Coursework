@@ -3,7 +3,8 @@ Threaded self-playing card game for ECM2414 Software Development Coursework
 
 ## Requirements
 
-- Java 25+
+- JDK 25+
+- JUnit 5
 
 ### In order to run the project
 
