@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 
 import exceptions.InvalidNumOfPlayersException;
+
 import game.Card;
 
 public class Player {
@@ -14,7 +15,6 @@ public class Player {
     public Player() {
         totalPlayers += 1;
         this.playerID = totalPlayers;
-
         playerArray.add(this);
     }
 
@@ -22,7 +22,6 @@ public class Player {
         if (id > playerArray.size()) {
             throw new InvalidNumOfPlayersException("You have tried to access an invalid player.");
         }
-
         return playerArray.get(id - 1);
     }
 

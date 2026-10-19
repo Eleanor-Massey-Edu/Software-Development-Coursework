@@ -5,9 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exceptions.NegativeException;
-import game.Card; //need this even though it is saying we don't use it. Ln 33.
 import exceptions.InvalidNumOfCardsException;
+import exceptions.NegativeException;
+
+import game.Card; //need this even though it is saying we don't use it. Ln 33.
 
 public class Pack {
 
@@ -32,15 +33,12 @@ public class Pack {
             }
             Card validCard = new Card(data);
             packQueue.add(validCard);  //puts the next bit of data onto the tail of the linked list 
-
         }
 
         //after the while loop, check the counter to see how many cards are in the pack
         if (count != 8*numPlayers){
             throw new InvalidNumOfCardsException("There are an invalid number of cards in the deck provided");
-        }
-
-        
+        } 
     }
     
     public void deal() {
@@ -59,9 +57,7 @@ public class Pack {
                     deck.addToDeck(cardToAdd); // Add single card to player deck
                     packQueue.remove(0);
                 }
-                
             }
-        } 
-        
+        }  
     }
 }

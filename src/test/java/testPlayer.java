@@ -1,12 +1,8 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-
-import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
-
 
 //For some reason have to import the class you are wanting to test even though they are in the same package
 import game.Player;

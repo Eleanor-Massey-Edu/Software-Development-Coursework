@@ -2,15 +2,13 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import java.io.ByteArrayInputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 //For some reason have to import the class you are wanting to test even though they are in the same package
 import game.CardDeck;
@@ -55,21 +53,6 @@ public class testTakeTurn {
         player2TakeTurn.chooseAndDiscard(newCard2); // choose a card to discard and discard it from player 1's hand
         assertEquals(correctPlayer2HandSize, Player.getHand(2).size());
     }
-
-        /*Player player1 = new Player();
-        Player player2 = new Player();
-        CardDeck deck1 = new CardDeck();
-        CardDeck deck2 = new CardDeck();
-        try{ //have to put in a try block but since the path is hard coded it can't be wrong
-            Pack pack1 = new Pack("src/test/resources/testTwo.txt",2);
-            pack1.deal();
-        } catch (Exception fileex){
-        }
-        TakeTurn player1TakeTurn = new TakeTurn(CardDeck.getCardDeck(1), CardDeck.getCardDeck(2), Player.getHand(1), 1);
-        TakeTurn player2TakeTurn = new TakeTurn(CardDeck.getCardDeck(2), CardDeck.getCardDeck(1), Player.getHand(2), 2);
-        TakeTurn.takeTurnArray.add(player1TakeTurn);
-        Player.playerThreadArray.add(new Thread(player1TakeTurn, "1"));
-        Thread t1*/
 
     @Test 
     @Tag("integration")

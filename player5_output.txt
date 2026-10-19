@@ -1,15 +1,15 @@
 player 5 initial hand 5 10 9 5
 player 5 draws a 5 from deck 5
-player 5 discards a 10 to deck 6
-player 5 current hand is 5 9 5 5 
+player 5 discards a 9 to deck 6
+player 5 current hand is 5 10 5 5 
 player 5 draws a 10 from deck 5
-player 5 discards a 9 to deck 6
-player 5 current hand is 5 5 5 10 
-player 5 draws a 9 from deck 5
-player 5 discards a 9 to deck 6
-player 5 current hand is 5 5 5 10 
-player 5 draws a 5 from deck 5
 player 5 discards a 10 to deck 6
+player 5 current hand is 5 10 5 5 
+player 5 draws a 9 from deck 5
+player 5 discards a 10 to deck 6
+player 5 current hand is 5 5 5 9 
+player 5 draws a 5 from deck 5
+player 5 discards a 9 to deck 6
 player 5 current hand is 5 5 5 5 
 player 5 wins
 player 5 exits

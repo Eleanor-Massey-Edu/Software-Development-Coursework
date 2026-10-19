@@ -1,13 +1,16 @@
 player 7 initial hand 4 1 12 1
 player 7 draws a 4 from deck 7
-player 7 discards a 1 to deck 8
-player 7 current hand is 4 1 12 4 
-player 7 draws a 1 from deck 7
 player 7 discards a 4 to deck 8
-player 7 current hand is 4 1 12 1 
+player 7 current hand is 1 12 1 4 
+player 7 draws a 1 from deck 7
+player 7 discards a 12 to deck 8
+player 7 current hand is 1 1 4 1 
 player 7 draws a 12 from deck 7
 player 7 discards a 1 to deck 8
-player 7 current hand is 4 1 12 12 
+player 7 current hand is 1 4 1 12 
+player 7 draws a 1 from deck 7
+player 7 discards a 1 to deck 8
+player 7 current hand is 1 4 12 1 
 player 5 has informed player 7 that player 5 has won
 player 7 exits
-player 7 hand: 4 1 12 12 
+player 7 hand: 1 4 12 1 

@@ -17,17 +17,13 @@ public class CardDeck {
     public CardDeck() {
         totalDecks += 1;
         this.deckID = totalDecks;
-
         cardDeckArray.add(this);
-        //System.out.println("made a new deck");
-    
     }
 
     public static CardDeck getCardDeck(int id) throws InvalidNumOfDecksException {
         if (id > cardDeckArray.size() || id < 0) {
             throw new InvalidNumOfDecksException("You have tried to access an invalid deck.");
         }
-
         return cardDeckArray.get(id - 1);
     }
 

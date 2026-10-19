@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import exceptions.InvalidNumOfTakeTurnObjectsException;
+
 import game.Card;
 
 public class TakeTurn implements Runnable {
@@ -19,8 +20,6 @@ public class TakeTurn implements Runnable {
     private ArrayList<Card> hand;
     private int preferredNumber;
     public static ArrayList<TakeTurn> takeTurnArray = new ArrayList<TakeTurn>();
-
-    public volatile boolean gamewon = false;
 
     public TakeTurn(CardDeck pickupDeck, CardDeck discardDeck, ArrayList<Card> hand, int playerID) {
         this.pickupDeck = pickupDeck;
@@ -36,7 +35,6 @@ public class TakeTurn implements Runnable {
         if (id > takeTurnArray.size()) {
             throw new InvalidNumOfTakeTurnObjectsException("You have tried to access an invalid TakeTurn object.");
         }
-
         return takeTurnArray.get(id - 1);
     }
 
@@ -46,65 +44,58 @@ public class TakeTurn implements Runnable {
         
         winningThread = checkWin();
         
-        //System.out.println("gameFinished is already: " + TakeTurn.gameFinished);
         CardDeck firstDeck;
         CardDeck secondDeck;
         Integer finalPlayer = Player.playerArray.size();
         String stringFinalPlayer = finalPlayer.toString();
-        //System.out.println(Thread.currentThread().getName());
-        //System.out.println("Thinks the final player is: " + "Player " + finalPlayer);
+
         if (Thread.currentThread().getName().equals(stringFinalPlayer)){  //rearrange the order of getting the locks if it is the last player, to avoid circular pattern deadlock
             firstDeck = this.discardDeck;
             secondDeck = this.pickupDeck;
-            //System.out.println("Rearranging order for last player so that the first deck is: " + firstDeck.getName() + " and the second deck is: " + secondDeck.getName());
         } else {
             firstDeck = this.pickupDeck;
             secondDeck = this.discardDeck;
         }
 
-        //System.out.println("Gotten to the while loop but the game finished is already: " + TakeTurn.gameFinished);
         while (!TakeTurn.gameFinished){
             if (pickupDeck.getSize() != 0){  //checks if there are cards left in the pickup deck to pickup from
-                //System.out.println(Thread.currentThread().getName() + " trying to get past 1st lock on " + firstDeck.getName());
                 synchronized(firstDeck){
-                    //System.out.println(Thread.currentThread().getName() + " has gotten past the first lock on " + firstDeck.getName());
-                    //System.out.println(Thread.currentThread().getName() + " trying to get past 2nd lock on " + secondDeck.getName());
-                    synchronized(secondDeck){
-                        //System.out.println(Thread.currentThread().getName() + " has both the locks on " + firstDeck.getName() + " and " + secondDeck.getName());  
+                    synchronized(secondDeck){  
                         try{
                             Card newCard = this.pickupDeck.draw();
                             this.chooseAndDiscard(newCard);
-                            System.out.println("player " + Thread.currentThread().getName() + " has chosen and discarded");
                         } catch (IndexOutOfBoundsException ex){
                             //if there is not a card left to draw from their pickup deck, do nothing and don't try to chooseAndDiscard()
                         }
                         //thread has taken their turn
-                        //System.out.println(Thread.currentThread().getName() + " has chosen and discarded.");
                         winningThread = checkWin();
                         if (winningThread != null){ //if there has been a winning thread, add it to the list of threads that have won this cycle of the while loop
                             winningThreads.add(winningThread);
                         }
-                        }
                     }
                 }
+            }
             
             try{
                 Thread.sleep(100);
-                //System.out.println(Thread.currentThread().getName() + " has slept for 100");
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            //System.out.println(Thread.currentThread().getName() + " has yeilded their locks");
-            }
+        }
         //doFinalOutputs
-        System.out.println(winningThreads + " from " + Thread.currentThread().getName());
-        if (winningThreads != null && Thread.currentThread().getName() == winningThreads.get(0)) { //only allow one thread to run writeWinOutputs, and the winning thread is guaranteed to pass this if statement
-            System.out.println(Thread.currentThread().getName() + " is writing the win outputs, list is " + winningThreads);
+        if (!winningThreads.isEmpty() && Thread.currentThread().getName().equals(winningThreads.get(0))) { //only allow one thread to run writeWinOutputs, and the winning thread is guaranteed to pass this if statement
             System.out.println("player " + winningThreads.get(0) + " wins");
+
+            try {
+                Thread.sleep(1000);
+            } catch(Exception ex) {
+
+            }
+
+            CardDeck.printDecks();
             writeWinOutputs(winningThreads.get(0)); //choose the first thread that won to be the winner that's written out
-            //System.out.println(TakeTurn.gameFinished);
         }
-        }
+    }
 
     public void chooseAndDiscard(Card newCard){
         //logic to choose a card to discard
@@ -120,14 +111,11 @@ public class TakeTurn implements Runnable {
                 //add the discarded card to the discard deck
                 this.discardDeck.addToDeck(cardAtRandomPosition);
                 this.writePlayerActions(newCard, cardAtRandomPosition);
-                //System.out.println("Outputting to file");
             }
-        }
-        
+        } 
     }
 
     public String checkWin() {
-        System.out.println("Check win has been called");
         int firstCardValue = hand.get(0).getValue(); // take the first card in hand to start check if all are the same value
         int counter = 0;
         for (Card card:hand){
@@ -135,11 +123,9 @@ public class TakeTurn implements Runnable {
                 counter += 1;
             }
         }
+
         if (counter == 4){ //if the hand that you have just changes now has 4 of the same value then they have won and the game is finished
             TakeTurn.gameFinished = true;
-            //System.out.println("player " + Thread.currentThread().getName() + " wins");
-            CardDeck.printDecks();
-            //this.writeWinOutputs();
             return Thread.currentThread().getName();
         } else {
             return null;

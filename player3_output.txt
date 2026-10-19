@@ -6,8 +6,8 @@ player 3 draws a 9 from deck 3
 player 3 discards a 1 to deck 4
 player 3 current hand is 9 10 1 9 
 player 3 draws a 10 from deck 3
-player 3 discards a 1 to deck 4
-player 3 current hand is 9 10 9 10 
+player 3 discards a 10 to deck 4
+player 3 current hand is 9 10 1 9 
 player 5 has informed player 3 that player 5 has won
 player 3 exits
-player 3 hand: 9 10 9 10 
+player 3 hand: 9 10 1 9 
