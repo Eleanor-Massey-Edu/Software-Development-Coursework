@@ -77,7 +77,7 @@ public class TakeTurn implements Runnable {
                         String winningThread = checkWin();
                         if (winningThread != null) {
                             writeWinOutputs(winningThread);
-                            System.out.println(TakeTurn.gameFinished);
+                            //System.out.println(TakeTurn.gameFinished);
                         }
                         }
                     }
@@ -127,7 +127,7 @@ public class TakeTurn implements Runnable {
             System.out.println("player " + Thread.currentThread().getName() + " wins");
             CardDeck.printDecks();
             //this.writeWinOutputs();
-            return Thread.currentThread().getName();
+            return Thread.currentThread().getName(); //??if 2 threads have won at the same time, cannot let them both writeWinOutputs so have to return only one
         } else {
             return null;
         }
@@ -152,7 +152,7 @@ public class TakeTurn implements Runnable {
         }
     }
 
-    public void writeWinOutputs(String winnerID) {
+    public void writeWinOutputs(String winnerID) { 
         Integer winningThread = Integer.parseInt(winnerID);
         try {
             for (int k = 1; k <= takeTurnArray.size(); k++) {
